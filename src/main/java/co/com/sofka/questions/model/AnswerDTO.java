@@ -1,39 +1,26 @@
 package co.com.sofka.questions.model;
 
-
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
-import java.util.Optional;
 
 public class AnswerDTO {
-    @NotBlank
+    @NotBlank(message = "El userId no puede ser nulo")
     private String userId;
-    @NotBlank
+    @NotBlank(message = "La questionId no puede ser nulo")
     private String questionId;
-    @NotBlank
+    @NotBlank(message = "El answer no puede ser nulo")
     private String answer;
-
     private Integer position;
 
-
-    public AnswerDTO() {
+    public AnswerDTO(){
 
     }
 
-    public AnswerDTO(@NotBlank String questionId, @NotBlank String userId, @NotBlank String answer) {
+    public AnswerDTO(@NotBlank String userId, @NotBlank String questionId, @NotBlank String answer) {
         this.userId = userId;
         this.questionId = questionId;
         this.answer = answer;
     }
-
-    public Integer getPosition() {
-        return Optional.ofNullable(position).orElse(1);
-    }
-
-    public void setPosition(Integer position) {
-        this.position = position;
-    }
-
 
     public String getUserId() {
         return userId;
@@ -57,6 +44,14 @@ public class AnswerDTO {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     @Override
