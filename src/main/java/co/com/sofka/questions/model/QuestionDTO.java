@@ -17,7 +17,7 @@ public class QuestionDTO {
     private String type;
     @NotBlank(message = "category no puede ser nulo")
     private String category;
-    private List<AnswerDTO> answer;
+    private List<AnswerDTO> answers;
 
     public QuestionDTO(){
 
@@ -78,13 +78,13 @@ public class QuestionDTO {
         this.category = category;
     }
 
-    public List<AnswerDTO> getAnswer() {
-        this.answer = Optional.ofNullable(answer).orElse(new ArrayList<>());
-        return answer;
+    public List<AnswerDTO> getAnswers() {
+        this.answers = Optional.ofNullable(answers).orElse(new ArrayList<>());
+        return answers;
     }
 
-    public void setAnswer(List<AnswerDTO> answer) {
-        this.answer = answer;
+    public void setAnswers(List<AnswerDTO> answer) {
+        this.answers = answer;
     }
 
     @Override
