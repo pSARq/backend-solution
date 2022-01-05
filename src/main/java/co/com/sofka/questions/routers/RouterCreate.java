@@ -23,6 +23,7 @@ public class RouterCreate {
                                 .flatMap(result -> ServerResponse.ok()
                                         .contentType(MediaType.TEXT_PLAIN)
                                         .bodyValue(result)))
+                        .onErrorResume(throwable -> ServerResponse.badRequest().body(throwable.getMessage(), String.class))
         );
     }
 }

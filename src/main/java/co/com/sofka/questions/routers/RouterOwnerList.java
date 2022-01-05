@@ -24,7 +24,7 @@ public class RouterOwnerList {
                         .body(BodyInserters.fromPublisher(
                                 useCaseOwnerList.apply(request.pathVariable("userId")),
                                 QuestionDTO.class
-                        ))
+                        )).onErrorResume(throwable -> ServerResponse.badRequest().body(throwable.getMessage(), String.class))
         );
     }
 }

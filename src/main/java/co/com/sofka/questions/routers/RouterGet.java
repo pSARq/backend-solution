@@ -25,7 +25,7 @@ public class RouterGet {
                         .body(BodyInserters.fromPublisher(useCaseGet.apply(
                                 request.pathVariable("id")),
                                 QuestionDTO.class
-                        ))
+                        )).onErrorResume(throwable -> ServerResponse.badRequest().body(throwable.getMessage(), String.class))
         );
     }
 }

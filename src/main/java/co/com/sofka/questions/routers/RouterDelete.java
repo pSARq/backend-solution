@@ -21,6 +21,7 @@ public class RouterDelete {
                 request -> ServerResponse.accepted()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(BodyInserters.fromPublisher(useCaseDelete.apply(request.pathVariable("id")), Void.class))
+                        .onErrorResume(throwable -> ServerResponse.badRequest().body(throwable.getMessage(), String.class))
         );
     }
 }
