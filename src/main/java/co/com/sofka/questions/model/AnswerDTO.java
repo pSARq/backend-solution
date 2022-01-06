@@ -2,6 +2,7 @@ package co.com.sofka.questions.model;
 
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class AnswerDTO {
@@ -13,17 +14,19 @@ public class AnswerDTO {
     private String questionId;
     @NotBlank(message = "El answer no puede ser nulo")
     private String answer;
+    @NotNull(message = "position no puede ser nulo")
     private Integer position;
 
     public AnswerDTO(){
-
+        this.position = 0;
     }
 
-    public AnswerDTO(@NotBlank String id, @NotBlank String userId, @NotBlank String questionId, @NotBlank String answer) {
+    public AnswerDTO(@NotBlank String id, @NotBlank String userId, @NotBlank String questionId, @NotBlank String answer, @NotNull Integer position) {
         this.id = id;
         this.userId = userId;
         this.questionId = questionId;
         this.answer = answer;
+        this.position = position;
     }
 
     public String getId() {

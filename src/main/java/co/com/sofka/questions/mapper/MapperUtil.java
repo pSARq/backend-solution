@@ -30,7 +30,8 @@ public class MapperUtil {
                 entity.getId(),
                 entity.getUserId(),
                 entity.getQuestionId(),
-                entity.getAnswer()
+                entity.getAnswer(),
+                entity.getPosition()
         );
     }
 
