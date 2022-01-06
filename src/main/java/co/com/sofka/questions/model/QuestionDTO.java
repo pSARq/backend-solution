@@ -23,7 +23,8 @@ public class QuestionDTO {
 
     }
 
-    public QuestionDTO(String id, String userId, String question, String type, String category) {
+    public QuestionDTO(@NotBlank String id, @NotBlank String userId, @NotBlank String question,
+                       @NotBlank String type, @NotBlank String category) {
         this.id = id;
         this.userId = userId;
         this.question = question;
@@ -31,7 +32,7 @@ public class QuestionDTO {
         this.category = category;
     }
 
-    public QuestionDTO(String userId, String question, String type, String category) {
+    public QuestionDTO(@NotBlank String userId, @NotBlank String question, @NotBlank String type, @NotBlank String category) {
         this.userId = userId;
         this.question = question;
         this.type = type;

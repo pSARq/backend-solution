@@ -30,7 +30,6 @@ public class UseCaseAddAnswer implements SaveAnswer {
     @Override
     public Mono<QuestionDTO> apply(AnswerDTO answerDTO)  {
         Objects.requireNonNull(answerDTO.getQuestionId(), "El QuestionId no puede ser nulo");
-        //isValidAnswerDTO(answerDTO);
         return useCaseGet.apply(answerDTO.getQuestionId())
                 .flatMap(question -> answerRepository.save(mapper.mapperToAnswer().apply(answerDTO))
                         .map(answer -> {
@@ -38,14 +37,6 @@ public class UseCaseAddAnswer implements SaveAnswer {
                             return question;
                         })
                 );
-    }
-
-    private Mono<Void> isValidAnswerDTO(AnswerDTO answerDTO) throws Exception {
-        int longitud = answerDTO.getAnswer().length();
-        if (longitud < 15 && longitud > 250){
-           throw new Exception("La respuesta debe tener entre 15 y 250 caracteres");
-        }
-        return null;
     }
 
 
