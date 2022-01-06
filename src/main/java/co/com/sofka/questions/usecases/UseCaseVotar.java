@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 @Service
 @Validated
 public class UseCaseVotar implements SaveVoto {
@@ -23,30 +25,15 @@ public class UseCaseVotar implements SaveVoto {
 
     @Override
     public Mono<String> apply(VotoDTO votoDTO) {
-        if (isEquals(votoDTO) == Mono.just("si")){
-            return Mono.just("Ya realizó el voto");
-        }else {
-            return votoRepository.save(mapperUtil.mapperToVoto().apply(votoDTO))
+        Voto voto = mapperUtil.mapperToVoto().apply(votoDTO);
+        return votoRepository.findByQuestionIdAndAnswerIdAndUserId(voto.getQuestionId(), voto.getAnswerId(), voto.getUserId())
+                .flatMap(voto1 -> Mono.just("Ya voto"))
+                .switchIfEmpty(guardar(voto));
+    }
+
+    public Mono<String> guardar(Voto voto) {
+        return votoRepository.save(voto)
                     .map(Voto::getId);
-        }
     }
-
-    public Mono<String> isEquals(VotoDTO votoDTO){
-        Voto voto = new Voto();
-        voto = mapperUtil.mapperToVoto().apply(votoDTO);
-        if (votoRepository.equals(voto)){
-            return Mono.just("si");
-        }
-        return Mono.just("si");
-    }
-
-/*
-    @Override
-    public Mono<VotoDTO> apply(VotoDTO votoDTO) {
-        return exists(votoDTO)..map(voto -> votoDTO.equals(voto))
-                .flatMap(voto -> votoRepository.save(mapperUtil.mapperToVoto().apply(votoDTO))
-                        .map(voto1 -> mapperUtil.mapEntityToVoto().apply(voto1)));
-    }
-
- */
+    
 }
