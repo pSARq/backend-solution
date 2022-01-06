@@ -33,7 +33,7 @@ public class UseCaseVotar implements SaveVoto {
                 .switchIfEmpty(guardarVoto(voto));
     }
 
-    public Mono<String> guardarVoto(Voto voto) {
+    private Mono<String> guardarVoto(Voto voto) {
         return votoRepository.save(voto)
                     .map(Voto::getId)
                 .then(guardarPuestoPregunta(voto));
@@ -48,30 +48,5 @@ public class UseCaseVotar implements SaveVoto {
                             .map(Answer::getId);
                 });
     }
-
-    /*
-    @Override
-    public Mono<String> apply(VotoDTO votoDTO) {
-        Voto voto = mapperUtil.mapperToVoto().apply(votoDTO);
-        return votoRepository.findByQuestionIdAndAnswerIdAndUserId(voto.getQuestionId(), voto.getAnswerId(), voto.getUserId())
-                .flatMap(voto1 -> Mono.just("Ya voto"))
-                .switchIfEmpty(guardarVoto(voto));
-    }
-
-    public Mono<String> guardarVoto(Voto voto) {
-        return votoRepository.save(voto)
-                    .map(Voto::getId)
-;
-    }
-
-    private Mono<String> guardarPuestoPregunta(Voto voto) {
-        return answerRepository.findById(voto.getAnswerId())
-                .flatMap(answer -> {
-                    answer.setPosition(answer.getPosition() + voto.getVoto());
-                    return answerRepository.save(answer)
-                            .map(Answer::getId);
-                });
-    }
-     */
 
 }
