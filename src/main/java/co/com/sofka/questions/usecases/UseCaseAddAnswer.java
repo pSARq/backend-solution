@@ -28,9 +28,9 @@ public class UseCaseAddAnswer implements SaveAnswer {
     }
 
     @Override
-    public Mono<QuestionDTO> apply(AnswerDTO answerDTO) throws Exception {
+    public Mono<QuestionDTO> apply(AnswerDTO answerDTO) {
         Objects.requireNonNull(answerDTO.getQuestionId(), "El QuestionId no puede ser nulo");
-        isValidAnswerDTO(answerDTO);
+        //isValidAnswerDTO(answerDTO);
         return useCaseGet.apply(answerDTO.getQuestionId())
                 .flatMap(question -> answerRepository.save(mapper.mapperToAnswer().apply(answerDTO))
                         .map(answer -> {
