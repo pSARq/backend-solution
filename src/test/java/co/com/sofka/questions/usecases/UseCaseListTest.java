@@ -24,7 +24,7 @@ class UseCaseListTest {
     }
 
     @Test
-    void getValidationTest() {
+    void getAllValidationTest() {
         var question = new Question();
         question.setUserId("xxxx-xxxx");
         question.setType("tech");
