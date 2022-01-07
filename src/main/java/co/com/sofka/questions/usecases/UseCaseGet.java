@@ -38,6 +38,8 @@ public class UseCaseGet implements Function<String, Mono<QuestionDTO>> {
                 Mono.just(questionDTO).zipWith(
                         answerRepository.findAllByQuestionId(questionDTO.getId())
                                 .map(mapper.mapEntityToAnswer())
+                                //Ordena de mayor a menor
+                                .sort((question, question2) -> question2.getPosition() - question.getPosition())
                                 .collectList(),
                         (question, answers) ->{
                             question.setAnswers(answers);
